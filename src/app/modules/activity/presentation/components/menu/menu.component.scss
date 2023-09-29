@@ -1,0 +1,37 @@
+.menu-list {
+    align-items: center;
+    display: flex;
+    flex: 1 1 100%;
+    letter-spacing: normal;
+    min-height: 48px;
+    outline: none;
+    padding: 0 16px;
+    position: relative;
+    text-decoration: none;
+}
+
+a {
+    background-color: transparent;
+}
+
+.menu-item-link {
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.menu-item--light {
+    background: #4949f2;
+    background-color: #4949f2;
+    color: rgba(255, 255, 255, 0.87);
+    margin: 0%;
+}    
+
+h1 {
+    font-size: x-large;
+    font-weight: inherit;
+    padding-left: 55px;
+    padding-top: 35px;
+}

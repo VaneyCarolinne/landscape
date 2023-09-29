@@ -1,0 +1,14 @@
+<div class="itinerario d-flex flex-row bd-highlight mb-3 justify-between">
+    <h1 class="p-2 bd-highlight">Itinerario</h1>
+    <a class="p-2 bd-highlight">+ Nueva actividad</a>
+</div>
+<div class="d-flex">
+    <div class="p-6" *ngFor="let activity of activities">
+        <h1 class="px-14">{{activity.startDate}}</h1>
+        <div ngx-moveable [draggable]="true">
+            <p class="py-10 px-14" (click)="moveActivityDate(activity)" (mouseover)="moveDateToNextActivity(activity)">{{activity.title}}</p>
+        </div>
+        
+    </div>
+</div>
+
