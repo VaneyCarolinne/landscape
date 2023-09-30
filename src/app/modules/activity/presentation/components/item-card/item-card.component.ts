@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostListener, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { ActivityService } from '../../../application/services/activities.service';
 import { IActivity, IActivityOrderByDates } from '../../../application/types';
 
@@ -14,7 +14,9 @@ export class ItemCardComponent implements OnInit, OnDestroy, OnChanges, AfterVie
     constructor(
         private activityService: ActivityService,
         private changeDetectorRef: ChangeDetectorRef,
+        private elementRef: ElementRef,
     ) {
+        
     }
 
     activities: IActivity[] = [];
@@ -23,8 +25,10 @@ export class ItemCardComponent implements OnInit, OnDestroy, OnChanges, AfterVie
 
     activitiesByDates: IActivityOrderByDates[] = [];
 
+    firstElement?: HTMLElement = undefined;
    
     ngOnInit(): void {
+        this.firstElement = this.elementRef.nativeElement.querySelector('#first-element');
         this.activities = this.activityService.getActivities();
         for(let i = 0; i < this.activities.length; i++){
             let activitiesByDate: IActivity[] = []
@@ -42,6 +46,7 @@ export class ItemCardComponent implements OnInit, OnDestroy, OnChanges, AfterVie
                 this.activitiesByDates.push(activityByDates);
             }    
         }
+        
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -53,42 +58,50 @@ export class ItemCardComponent implements OnInit, OnDestroy, OnChanges, AfterVie
     ngOnDestroy(): void {
         console.log('destroy')
     }
-
-    setActivityDate(activity: IActivity) {
-        this.activityInMove = activity;
-    }
-
-    moveActivityDate(activity: IActivity) {
-        this.activityInMove = activity;  
-        for(let i = 0; i < this.activitiesByDates.length; i ++){
-            const currentActivities = this.activitiesByDates[i].activities;
-            for(let j = 0; j < currentActivities.length; j++){
-                if(this.activityInMove.activityId == currentActivities[j].activityId && 
-                        this.activitiesByDates[i].startDate == this.activityInMove.startDate &&
-                        currentActivities[j].startDate == this.activityInMove.startDate) {
-                        currentActivities.splice(j, 1);
-                        this.activitiesByDates[j].activities = currentActivities;
+    @HostListener('dragover', ['$event'])
+    moveActivityDate(event: DragEvent, activity: IActivity, activityByDate: IActivityOrderByDates) {
+        event.preventDefault();
+            if(this.activityInMove && activityByDate){
+                for(let i = 0; this.activitiesByDates.length; i++){
+                    if(this.activitiesByDates[i].startDate == activityByDate.startDate){
+                        const currentActivities = activityByDate.activities;
+                        for(let j = 0; j < currentActivities.length; j++){
+                            if(this.activityInMove?.activityId == currentActivities[j].activityId && 
+                                activityByDate.startDate == this.activityInMove.startDate &&
+                                currentActivities[j].startDate == this.activityInMove.startDate) {
+                                currentActivities.splice(j, 1);
+                                this.activitiesByDates[i].activities = currentActivities;
+                            }
+                        }
+                    }
                 }
             }
-        } 
+        
         this.changeDetectorRef.detectChanges(); 
     }
 
-    moveDateToNextActivity(activityMouseOver: IActivityOrderByDates) {   
+    onClick(activity: IActivity) {  
+        this.activityInMove = activity;
+        this.changeDetectorRef.detectChanges(); 
+    }
+
+    @HostListener('drop', ['$event'])
+    moveDateToNextActivity(event: DragEvent ,activityMouseOver: IActivityOrderByDates) {   
+        event.preventDefault();
         if(this.activityInMove){
+            console.log('entre');
             for(let i = 0; i < this.activitiesByDates.length; i ++){
                 if(this.activitiesByDates[i].startDate == activityMouseOver.startDate){
                     this.activityInMove.startDate = activityMouseOver.startDate;
                     this.activitiesByDates[i].activities.push(this.activityInMove);
                 }
             }
+            this.activityInMove = undefined;
         }
-        this.activityInMove = undefined;
         this.changeDetectorRef.detectChanges();
     }
 
     ngAfterViewInit(): void {
-        
         this.changeDetectorRef.detectChanges();
     }
 }

@@ -3,11 +3,11 @@
     <a class="p-2 bd-highlight">+ Nueva actividad</a>
 </div>
 <div class="d-flex">
-    <div class="p-6" *ngFor="let activityByDate of activitiesByDates" (mouseover)="moveDateToNextActivity(activityByDate)">
+    <div class="p-6" *ngFor="let activityByDate of activitiesByDates" (drop)="moveDateToNextActivity($event, activityByDate)">
         <h1 class="px-14">{{activityByDate.startDate}}</h1>
-        <div class="p-6 align-middle" *ngFor="let activity of activityByDate.activities" >
-            <div ngx-moveable [draggable]="true" class="align-middle" (dragover)="moveActivityDate(activity)">
-                <p class="py-2 px-2 align-middle" >{{activity.title}}</p>
+        <div class="p-6 align-middle" *ngFor="let activity of activityByDate.activities">
+            <div ngx-moveable [draggable]="true" class="align-middle" >
+                <div class="py-2 px-2 align-middle item" (click)="onClick(activity)" (dragover)="moveActivityDate($event, activity, activityByDate)" >{{activity.title}}</div>
             </div>
         </div>
     </div>
