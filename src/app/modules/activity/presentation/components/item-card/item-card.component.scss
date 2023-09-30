@@ -10,7 +10,7 @@
     height: 80%;
 }
 
-a {
+.btn {
     background: #4949f2;
     border-radius: 10rem;
     color: rgba(255, 255, 255, 0.87);
@@ -22,6 +22,12 @@ a {
     cursor: pointer;
     justify-content: center;
     text-transform: none;
+}
+
+.btn:active {
+    background-color: #6363fc;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
 }
 
 .dashboard-panel {
