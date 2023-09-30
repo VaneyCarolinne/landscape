@@ -89,7 +89,6 @@ export class ItemCardComponent implements OnInit, OnDestroy, OnChanges, AfterVie
     moveDateToNextActivity(event: DragEvent ,activityMouseOver: IActivityOrderByDates) {   
         event.preventDefault();
         if(this.activityInMove){
-            console.log('entre');
             for(let i = 0; i < this.activitiesByDates.length; i ++){
                 if(this.activitiesByDates[i].startDate == activityMouseOver.startDate){
                     this.activityInMove.startDate = activityMouseOver.startDate;
