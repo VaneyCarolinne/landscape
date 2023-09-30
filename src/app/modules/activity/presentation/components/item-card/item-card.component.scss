@@ -4,8 +4,14 @@
     padding-right: 55px;
 }
 
+.activities {
+    padding-left: 55px;
+    margin: 0;
+    height: 80%;
+}
+
 a {
-    background: #5858f5;
+    background: #4949f2;
     border-radius: 10rem;
     color: rgba(255, 255, 255, 0.87);
     font-size: .875rem;
@@ -24,11 +30,10 @@ a {
 }
 
 .card {
-    background: #b9b9b9;
+    border-radius: 5rem;
+    border: 1px solid #4949f2;
     height: 100%;
-    margin: 0;
 }
-
 
 .item {
     background: #d0d0fd;
@@ -42,4 +47,11 @@ a {
     cursor: pointer;
     justify-content: center;
     text-transform: none;
+    transform: translateY(4px);
+}
+
+.item:active {
+    background-color: #d0d0fd;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
 }

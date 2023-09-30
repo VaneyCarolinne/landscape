@@ -59,16 +59,16 @@ export class ItemCardComponent implements OnInit, OnDestroy, OnChanges, AfterVie
         console.log('destroy')
     }
     @HostListener('dragover', ['$event'])
-    moveActivityDate(event: DragEvent, activity: IActivity, activityByDate: IActivityOrderByDates) {
+    moveActivityDate(event: DragEvent, activityByDate: IActivityOrderByDates) {
         event.preventDefault();
-            if(this.activityInMove && activityByDate){
+            if(this.activityInMove !== undefined && activityByDate !== undefined){
                 for(let i = 0; this.activitiesByDates.length; i++){
                     if(this.activitiesByDates[i].startDate == activityByDate.startDate){
                         const currentActivities = activityByDate.activities;
                         for(let j = 0; j < currentActivities.length; j++){
                             if(this.activityInMove?.activityId == currentActivities[j].activityId && 
-                                activityByDate.startDate == this.activityInMove.startDate &&
-                                currentActivities[j].startDate == this.activityInMove.startDate) {
+                                activityByDate.startDate == this.activityInMove?.startDate &&
+                                currentActivities[j].startDate == this.activityInMove?.startDate) {
                                 currentActivities.splice(j, 1);
                                 this.activitiesByDates[i].activities = currentActivities;
                             }
@@ -92,6 +92,20 @@ export class ItemCardComponent implements OnInit, OnDestroy, OnChanges, AfterVie
             for(let i = 0; i < this.activitiesByDates.length; i ++){
                 if(this.activitiesByDates[i].startDate == activityMouseOver.startDate){
                     this.activityInMove.startDate = activityMouseOver.startDate;
+                    this.activitiesByDates[i].activities.push(this.activityInMove);
+                }
+            }
+            this.activityInMove = undefined;
+        }
+        this.changeDetectorRef.detectChanges();
+    }
+
+    @HostListener('drop', ['$event'])
+    backActivityToInitialDate(event: DragEvent){
+        event.preventDefault();
+          if(this.activityInMove){
+            for(let i = 0; i < this.activitiesByDates.length; i ++){
+                if(this.activitiesByDates[i].startDate == this.activityInMove.startDate){
                     this.activitiesByDates[i].activities.push(this.activityInMove);
                 }
             }
