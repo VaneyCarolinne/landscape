@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { ActivityService } from '../../../application/services/activities.service';
-import { IActivity } from '../../../application/types';
+import { IActivity, IActivityOrderByDates } from '../../../application/types';
 
 
 @Component({
@@ -21,9 +21,27 @@ export class ItemCardComponent implements OnInit, OnDestroy, OnChanges, AfterVie
 
     activityInMove?: IActivity;
 
+    activitiesByDates: IActivityOrderByDates[] = [];
+
    
     ngOnInit(): void {
         this.activities = this.activityService.getActivities();
+        for(let i = 0; i < this.activities.length; i++){
+            let activitiesByDate: IActivity[] = []
+            const isADatePushed = this.activitiesByDates.filter((x) =>  x.startDate == this.activities[i].startDate );
+            if(isADatePushed.length == 0){
+                for(let j = 0; j < this.activities.length; j++){
+                    if(this.activities[i].startDate == this.activities[j].startDate){
+                        activitiesByDate.push(this.activities[j])
+                    } 
+                }
+                let activityByDates: IActivityOrderByDates = {
+                    startDate: this.activities[i].startDate,
+                    activities: activitiesByDate
+                }
+                this.activitiesByDates.push(activityByDates);
+            }    
+        }
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -36,25 +54,41 @@ export class ItemCardComponent implements OnInit, OnDestroy, OnChanges, AfterVie
         console.log('destroy')
     }
 
-    moveActivityDate(activity: IActivity) {
-       this.activityInMove = activity;
+    setActivityDate(activity: IActivity) {
+        this.activityInMove = activity;
     }
 
-    moveDateToNextActivity(activityMouseOver: IActivity) {     
+    moveActivityDate(activity: IActivity) {
+        this.activityInMove = activity;  
+        for(let i = 0; i < this.activitiesByDates.length; i ++){
+            const currentActivities = this.activitiesByDates[i].activities;
+            for(let j = 0; j < currentActivities.length; j++){
+                if(this.activityInMove.activityId == currentActivities[j].activityId && 
+                        this.activitiesByDates[i].startDate == this.activityInMove.startDate &&
+                        currentActivities[j].startDate == this.activityInMove.startDate) {
+                        currentActivities.splice(j, 1);
+                        this.activitiesByDates[j].activities = currentActivities;
+                }
+            }
+        } 
+        this.changeDetectorRef.detectChanges(); 
+    }
+
+    moveDateToNextActivity(activityMouseOver: IActivityOrderByDates) {   
         if(this.activityInMove){
-            this.activityInMove.startDate = activityMouseOver.startDate
+            for(let i = 0; i < this.activitiesByDates.length; i ++){
+                if(this.activitiesByDates[i].startDate == activityMouseOver.startDate){
+                    this.activityInMove.startDate = activityMouseOver.startDate;
+                    this.activitiesByDates[i].activities.push(this.activityInMove);
+                }
+            }
         }
+        this.activityInMove = undefined;
         this.changeDetectorRef.detectChanges();
     }
 
     ngAfterViewInit(): void {
-        if(this.activityInMove){
-            for(let i = 0; i < this.activities.length; i++){
-                if(this.activityInMove.activityId == this.activities[i].activityId){
-                    this.activities[i] = this.activityInMove;
-                }
-            }
-        }
+        
         this.changeDetectorRef.detectChanges();
     }
 }

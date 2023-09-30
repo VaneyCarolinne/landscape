@@ -9,3 +9,8 @@ export interface IActivity {
     status: string;
 
 }
+
+export interface IActivityOrderByDates {
+    startDate: string;
+    activities: IActivity[];
+}
