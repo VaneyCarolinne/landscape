@@ -6,6 +6,12 @@ import { ItemCardComponent } from './presentation/components/item-card/item-card
 import { ModalComponent } from './presentation/components/modal/modal.component';
 import { ActivityRoutingModule } from './activity-routing.module';
 import { NgxMoveableModule } from 'ngx-moveable';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -17,7 +23,13 @@ import { NgxMoveableModule } from 'ngx-moveable';
   imports: [
     CommonModule,
     ActivityRoutingModule,
-    NgxMoveableModule
+    NgxMoveableModule,
+    MatDialogModule,
+    MatIconModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
+    MatInputModule,
   ],
 })
 export class ActivityModule { }

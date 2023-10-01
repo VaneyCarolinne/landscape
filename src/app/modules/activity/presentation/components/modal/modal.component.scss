@@ -1,0 +1,22 @@
+.modal-body {
+    width: 40%;
+    background: #ffffff;
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+}
+
+.nav-menu {
+    background: #4949f2;
+    color: rgba(255, 255, 255, 0.87);
+    font-size: .875rem;
+    transition: box-shadow 375ms 0ms cubic-bezier(.4,0,.2,1);
+    white-space: nowrap;
+    font-weight: 400;
+    align-items: center;
+    justify-content: center;
+    text-transform: none;
+    height: 8%;
+    font-family: 'Trebuchet MS';
+}

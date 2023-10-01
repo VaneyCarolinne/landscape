@@ -9,12 +9,13 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/
 })
 export class ModalComponent implements OnInit, OnDestroy {
 
+   
     constructor() {
     }
 
    
     ngOnInit(): void {
-        console.log('init')
+      
     }
 
    

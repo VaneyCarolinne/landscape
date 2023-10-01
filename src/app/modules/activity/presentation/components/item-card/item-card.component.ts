@@ -1,7 +1,8 @@
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostListener, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { ActivityService } from '../../../application/services/activities.service';
 import { IActivity, IActivityOrderByDates } from '../../../application/types';
-
+import { ModalComponent } from './../modal/modal.component';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-item-card',
@@ -15,6 +16,7 @@ export class ItemCardComponent implements OnInit, OnDestroy, OnChanges, AfterVie
         private activityService: ActivityService,
         private changeDetectorRef: ChangeDetectorRef,
         private elementRef: ElementRef,
+        public dialog: MatDialog,
     ) {
         
     }
@@ -117,4 +119,13 @@ export class ItemCardComponent implements OnInit, OnDestroy, OnChanges, AfterVie
     ngAfterViewInit(): void {
         this.changeDetectorRef.detectChanges();
     }
+
+    openModal() {
+        const config = new MatDialogConfig();
+        config.position = {
+            top: '0',
+            right: '0'
+        };
+        this.dialog.open(ModalComponent, config);
+    }    
 }

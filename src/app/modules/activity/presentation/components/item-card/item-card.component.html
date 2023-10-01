@@ -1,6 +1,6 @@
-<div class="itinerario d-flex flex-row bd-highlight mb-3 justify-between">
+<div class="itinerario d-flex flex-row align-middle bd-highlight  justify-between">
     <h1 class="p-2 bd-highlight">Itinerario</h1>
-    <a class="p-2 bd-highlight btn">+ Nueva actividad</a>
+    <a class="px-2 bd-highlight btn d-flex justify-center" (click)="openModal()"><mat-icon>add_circle_outline</mat-icon>  Nueva actividad</a>
 </div>
 <div class="d-flex activities gap-4" (drop)="backActivityToInitialDate($event)">
     <div class="p-6 card" *ngFor="let activityByDate of activitiesByDates" (drop)="moveDateToNextActivity($event, activityByDate)">

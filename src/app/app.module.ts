@@ -5,6 +5,7 @@ import { AppComponent } from './modules/global/app/app.component';
 import { ActivityModule } from './modules/activity/activity.module';
 import { NgxMoveableModule } from 'ngx-moveable';
 
+
 @NgModule({
   declarations: [
     AppComponent,
