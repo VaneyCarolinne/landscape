@@ -1,11 +1,5 @@
-.itinerario{
-    padding-left: 55px;
-    padding-top: 40px;
-    padding-right: 55px;
-}
 
-.activities {
-    padding-left: 55px;
+.activities {    
     margin: 0;
     height: 80%;
 }
@@ -36,14 +30,15 @@
 }
 
 .card {
-    border-radius: 5rem;
-    border: 1px solid #4949f2;
+    border: 1px solid #c7c7c7;
+    box-shadow: 0 2px #9c9b9b;
+    border-radius: 0.5rem;
+    font-family: 'Trebuchet MS';
     height: 100%;
 }
 
 .item {
-    background: #d0d0fd;
-    border-radius: 10rem;
+    border: 1px solid #c7c7c7;
     color: rgba(3, 3, 3, 0.87);
     font-size: .875rem;
     transition: box-shadow 375ms 0ms cubic-bezier(.4,0,.2,1);
@@ -54,10 +49,24 @@
     justify-content: center;
     text-transform: none;
     transform: translateY(4px);
+    width: 400px;
+    height: 90px;
+    max-width: 100%;
+    box-shadow: 0 2px #9c9b9b;
+    border-radius: 10rem;
+    font-family: 'Trebuchet MS';
 }
 
 .item:active {
-    background-color: #d0d0fd;
-    box-shadow: 0 5px #666;
+    background-color: #0a99ff;
+    box-shadow: 0 5px #040524;
     transform: translateY(4px);
+}
+
+.font {
+    font-family: 'Trebuchet MS';
+}
+
+.title {
+    font-size: .875rem;
 }

@@ -6,16 +6,16 @@ let ActivitiesDummy: IActivity[] = [
         activityId : 1,
         title: "Subida al cerro catedral",
         type: "ACTIVITY",
-        startDate: new Date("2022-01-22 01:30:00").toDateString(),
-        endDate: new Date("2022-01-22 23:30:00").toDateString(),
+        startDate: "2022-01-22 01:30:00",
+        endDate: "2022-01-22 23:30:00",
         status: "IN_PROGRESS",
     },
     {
         activityId : 2,
         title: "Fiesta de espuma",
         type: "PARTY",
-        startDate: new Date("2022-01-22 01:30:00").toDateString(),
-        endDate: new Date("2022-01-22 23:30:00").toDateString(),
+        startDate: "2022-01-22 01:30:00",
+        endDate: "2022-01-22 23:30:00",
         status: "DONE",
     },
     {
@@ -107,7 +107,7 @@ export class ActivityService {
   }
 
   modifyEmptyDates(): IActivity[]{
-     for(let i=0; i< ActivitiesDummy.length; i++){
+    for(let i=0; i< ActivitiesDummy.length; i++){
       if(ActivitiesDummy[i].startDate == "" || ActivitiesDummy[i].startDate == null || ActivitiesDummy[i].startDate == undefined){
         ActivitiesDummy[i].startDate = "Sin Fecha asignada"
       }
@@ -115,7 +115,28 @@ export class ActivityService {
     return ActivitiesDummy;
   }
 
+  configInitHour(): IActivity[]{
+    for(let i=0; i< ActivitiesDummy.length; i++){
+      if(ActivitiesDummy[i].startDate !== "" && ActivitiesDummy[i].startDate !== null && ActivitiesDummy[i].startDate !== undefined){
+        ActivitiesDummy[i].initHour = ActivitiesDummy[i].startDate.split(' ')[1];
+      }
+    }
+    return ActivitiesDummy;
+  }
+
+  configStartDate(): IActivity[]{
+    for(let i=0; i< ActivitiesDummy.length; i++){
+      if(ActivitiesDummy[i].startDate !== "" && ActivitiesDummy[i].startDate !== null && ActivitiesDummy[i].startDate !== undefined){
+        ActivitiesDummy[i].startDate = ActivitiesDummy[i].startDate.split(' ')[0];
+        ActivitiesDummy[i].startDate = new Date(ActivitiesDummy[i].startDate).toDateString();
+      }
+    }
+    return ActivitiesDummy;    
+  }
+
   getActivities(): IActivity[]{
+    ActivitiesDummy = this.configInitHour();
+    ActivitiesDummy = this.configStartDate();
     ActivitiesDummy = this.modifyMonthToSpanish();
     ActivitiesDummy = this.modifyEmptyDates();
     return ActivitiesDummy;

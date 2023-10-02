@@ -7,6 +7,7 @@ export interface IActivity {
     startDate: string;
     endDate: string;
     status: string;
+    initHour?: string;
 
 }
 

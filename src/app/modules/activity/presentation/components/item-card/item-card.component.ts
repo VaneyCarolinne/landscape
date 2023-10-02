@@ -26,11 +26,8 @@ export class ItemCardComponent implements OnInit, OnDestroy, OnChanges, AfterVie
     activityInMove?: IActivity;
 
     activitiesByDates: IActivityOrderByDates[] = [];
-
-    firstElement?: HTMLElement = undefined;
    
     ngOnInit(): void {
-        this.firstElement = this.elementRef.nativeElement.querySelector('#first-element');
         this.activities = this.activityService.getActivities();
         for(let i = 0; i < this.activities.length; i++){
             let activitiesByDate: IActivity[] = []
