@@ -1,6 +1,29 @@
-<div class="modal-body ">
+<div class="modal-body">
     <nav class="nav-menu d-flex justify-content-start px-2"> <mat-icon class="px-6">chevron_right</mat-icon> Agregar nueva actividad</nav>
-    <div class="d-flex-column">
-
+    <div class="flex-column div-activity px-4 py-4">
+        <mat-label>Nombre de la actividad</mat-label>
+        <input class="input-activity" placeholder="Busca una actividad o crea una nueva"/>
+    </div>
+    <div class="d-flex gap-1">
+        <div class="flex-column div-activity px-4 py-4">
+            <mat-label class="py-2">Fecha de Inicio</mat-label>
+            <mat-form-field>
+                <input matInput [matDatepicker]="picker">
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="flex-column div-activity py-4">
+            <mat-label class="py-2">Fecha de finalización</mat-label>
+            <mat-form-field>
+                <input matInput [matDatepicker]="pickerEnd">
+                <mat-datepicker-toggle matIconSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+                <mat-datepicker #pickerEnd></mat-datepicker>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="d-flex justify-end gap-2 div-btns">   
+        <button class="btn-cancel">Cancelar</button>
+        <button class="btn">Agregar</button>
     </div>
 </div>

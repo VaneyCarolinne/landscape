@@ -4,6 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './modules/global/app/app.component';
 import { ActivityModule } from './modules/activity/activity.module';
 import { NgxMoveableModule } from 'ngx-moveable';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { NgxMoveableModule } from 'ngx-moveable';
     BrowserModule,
     AppRoutingModule,
     ActivityModule,
-    NgxMoveableModule
+    NgxMoveableModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
